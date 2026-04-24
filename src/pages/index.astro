@@ -396,7 +396,16 @@ const faqSchema = {
 </Base>
 
 <script>
-  const waitlistEndpoint = '/api/waitlist';
+  const waitlistEndpoints = ['/api/waitlist', '/.netlify/functions/ssr/api/waitlist'];
+  async function fetchWaitlist(pathIndex, options) {
+    return fetch(waitlistEndpoints[pathIndex], options);
+  }
+
+  async function fetchWaitlistWithFallback(options) {
+    const primary = await fetchWaitlist(0, options);
+    if (primary.status !== 404) return primary;
+    return fetchWaitlist(1, options);
+  }
   const navElement = document.querySelector('.dm-nav');
   let lastScrollY = window.scrollY;
 
@@ -489,7 +498,7 @@ const faqSchema = {
     const counterCopy = document.getElementById('counter-copy');
     if (!counterElement) return;
     try {
-      const response = await fetch(waitlistEndpoint, { method: 'GET' });
+      const response = await fetchWaitlistWithFallback({ method: 'GET' });
       if (!response.ok) throw new Error('Counter endpoint failed');
       const data = await response.json().catch(() => ({}));
       const value = Number.parseInt(`${data?.count ?? ''}`, 10);
@@ -543,7 +552,7 @@ const faqSchema = {
     formStatus.textContent = '';
 
     try {
-      const response = await fetch(waitlistEndpoint, {
+      const response = await fetchWaitlistWithFallback({
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
