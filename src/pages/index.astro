@@ -396,15 +396,23 @@ const faqSchema = {
 </Base>
 
 <script>
-  const waitlistEndpoints = ['/api/waitlist', '/.netlify/functions/ssr/api/waitlist', '/.netlify/functions/waitlist'];
+  const isNetlifyHost = window.location.hostname.includes('netlify.app');
+  const waitlistEndpoints = isNetlifyHost
+    ? ['/api/waitlist', '/.netlify/functions/ssr/api/waitlist', '/.netlify/functions/waitlist']
+    : ['/api/waitlist'];
   async function fetchWaitlist(pathIndex, options) {
     return fetch(waitlistEndpoints[pathIndex], options);
   }
 
   async function fetchWaitlistWithFallback(options) {
     for (let index = 0; index < waitlistEndpoints.length; index += 1) {
-      const response = await fetchWaitlist(index, options);
-      if (response.status !== 404) return response;
+      try {
+        const response = await fetchWaitlist(index, options);
+        if ([404, 405, 500, 502, 503].includes(response.status)) continue;
+        return response;
+      } catch {
+        if (index === waitlistEndpoints.length - 1) throw new Error('Waitlist endpoint unavailable');
+      }
     }
     return fetchWaitlist(0, options);
   }
