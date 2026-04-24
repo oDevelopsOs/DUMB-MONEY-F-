@@ -54,5 +54,5 @@ Allow: /
 User-agent: CCBot
 Allow: /
 
-Sitemap: https://dumbmoneyy.netlify.app/sitemap-index.xml
-Sitemap: https://dumbmoneyy.netlify.app/rss.xml
+Sitemap: https://dumb-money-blond.vercel.app/sitemap-index.xml
+Sitemap: https://dumb-money-blond.vercel.app/rss.xml

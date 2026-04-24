@@ -1,8 +1,8 @@
 const endpoint = process.env.INDEXNOW_ENDPOINT || 'https://api.indexnow.org/indexnow';
-const host = process.env.INDEXNOW_HOST || 'dumbmoneyy.netlify.app';
+const host = process.env.INDEXNOW_HOST || 'dumb-money-blond.vercel.app';
 const key = process.env.INDEXNOW_KEY;
 const keyLocation = process.env.INDEXNOW_KEY_LOCATION || `https://${host}/${key}.txt`;
-const rawUrls = process.env.INDEXNOW_URLS || 'https://dumbmoneyy.netlify.app/';
+const rawUrls = process.env.INDEXNOW_URLS || 'https://dumb-money-blond.vercel.app/';
 const urlList = rawUrls
   .split(',')
   .map((value) => value.trim())

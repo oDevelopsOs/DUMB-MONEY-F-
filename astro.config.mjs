@@ -6,5 +6,5 @@ export default defineConfig({
   output: 'hybrid',
   adapter: netlify(),
   integrations: [tailwind()],
-  site: 'https://dumbmoneyy.netlify.app',
+  site: 'https://dumb-money-blond.vercel.app',
 });
