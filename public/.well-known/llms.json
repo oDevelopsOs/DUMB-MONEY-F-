@@ -1,0 +1,18 @@
+{
+  "name": "Dumb Money",
+  "url": "https://dumbmoney.io",
+  "mission": "Evidence-first market intelligence for retail investors.",
+  "llms_txt": "https://dumbmoney.io/llms.txt",
+  "llms_full_txt": "https://dumbmoney.io/llms-full.txt",
+  "language": "en",
+  "topics": [
+    "payment for order flow",
+    "execution quality",
+    "market structure",
+    "retail investor education"
+  ],
+  "contact": {
+    "email": "gm@dumbmoney.io",
+    "press": "https://dumbmoney.io/press"
+  }
+}

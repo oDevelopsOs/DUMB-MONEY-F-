@@ -1,0 +1,14 @@
+---
+import Base from '../layouts/Base.astro';
+const lastUpdated = '2026-04-24';
+---
+<Base title="Corrections Policy - DUMB MONEY" description="How Dumb Money handles corrections, updates, and editorial accountability." modifiedTime={new Date(`${lastUpdated}T00:00:00.000Z`).toISOString()}>
+  <main class="section section-alt">
+    <div class="container">
+      <h1 class="display h2">Corrections Policy</h1>
+      <p class="paragraph"><strong>Last updated:</strong> <time datetime={lastUpdated}>{lastUpdated}</time></p>
+      <p class="paragraph">If we get a factual claim wrong, we correct it clearly and quickly. Major corrections include what changed and why.</p>
+      <p class="paragraph">To request a correction, email <a href="mailto:gm@dumbmoney.io">gm@dumbmoney.io</a> with links, source evidence, and the disputed claim.</p>
+    </div>
+  </main>
+</Base>

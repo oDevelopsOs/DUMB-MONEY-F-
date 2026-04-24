@@ -1,0 +1,12 @@
+---
+const {
+  author = 'Dumb Money Research Desk',
+  reviewer = 'Editorial Standards Review',
+  date = '2026-04-24',
+} = Astro.props;
+---
+<p class="paragraph navy">
+  <strong>Author:</strong> {author}<br />
+  <strong>Reviewed by:</strong> {reviewer}<br />
+  <strong>Last updated:</strong> <time datetime={date}>{date}</time>
+</p>

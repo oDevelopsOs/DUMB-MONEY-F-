@@ -1,0 +1,14 @@
+---
+import Base from '../layouts/Base.astro';
+const lastUpdated = '2026-04-24';
+---
+<Base title="Press Contact - DUMB MONEY" description="Press inquiries and media contact for Dumb Money." modifiedTime={new Date(`${lastUpdated}T00:00:00.000Z`).toISOString()}>
+  <main class="section section-alt">
+    <div class="container">
+      <h1 class="display h2">Press Contact</h1>
+      <p class="paragraph"><strong>Last updated:</strong> <time datetime={lastUpdated}>{lastUpdated}</time></p>
+      <p class="paragraph">For media requests, interviews, or data context about PFOF and market structure, contact <a href="mailto:press@dumbmoney.io">press@dumbmoney.io</a>.</p>
+      <p class="paragraph">Please include deadline, topic, and outlet details so we can route your request quickly.</p>
+    </div>
+  </main>
+</Base>

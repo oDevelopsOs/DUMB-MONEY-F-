@@ -1,0 +1,222 @@
+{
+  "project": {
+    "name": "DUMB MONEY frontend",
+    "framework": "Astro 4",
+    "styleApproach": "Mobile-first semantic CSS + Tailwind integration",
+    "entryPoints": [
+      "src/pages/index.astro",
+      "src/pages/privacy.astro"
+    ],
+    "layout": "src/layouts/Base.astro",
+    "globalStyles": "src/styles/global.css"
+  },
+  "routes": [
+    {
+      "path": "/",
+      "file": "src/pages/index.astro",
+      "purpose": "Main landing with narrative, stats, proof, solution, waitlist and footer"
+    },
+    {
+      "path": "/privacy",
+      "file": "src/pages/privacy.astro",
+      "purpose": "Privacy information and contact"
+    }
+  ],
+  "seoAndMeta": {
+    "sourceFile": "src/layouts/Base.astro",
+    "items": [
+      "title and description props",
+      "canonical URL using Astro.url.href",
+      "Open Graph tags",
+      "Twitter card tags",
+      "robots meta",
+      "JSON-LD SoftwareApplication schema",
+      "favicon link"
+    ],
+    "publicFiles": [
+      "public/robots.txt",
+      "public/llms.txt"
+    ]
+  },
+  "sections": [
+    {
+      "id": "nav",
+      "selector": ".dm-nav",
+      "goal": "Sticky top navigation with logo and CTA anchor to waitlist"
+    },
+    {
+      "id": "hero",
+      "selector": ".hero",
+      "goal": "Primary messaging, branding, CTA and mobile-first first impression",
+      "subParts": [
+        "hero-title-main",
+        "hero-title-acid",
+        "hero-panel",
+        "scroll-indicator"
+      ]
+    },
+    {
+      "id": "problem",
+      "selector": ".problem",
+      "goal": "Explains market asymmetry and structural disadvantage for retail investors"
+    },
+    {
+      "id": "stats",
+      "selector": ".stats-grid",
+      "goal": "Data points with animated counter numbers"
+    },
+    {
+      "id": "charges",
+      "selector": ".enemy .crime-list",
+      "goal": "Cards of market structure issues and examples"
+    },
+    {
+      "id": "proof",
+      "selector": ".proof-grid",
+      "goal": "Historical/real-world examples reinforcing narrative"
+    },
+    {
+      "id": "manifesto",
+      "selector": ".manifesto",
+      "goal": "Brand positioning and movement voice"
+    },
+    {
+      "id": "solution",
+      "selector": ".solution-grid",
+      "goal": "Three pillar product framing"
+    },
+    {
+      "id": "waitlist",
+      "selector": "#waitlist",
+      "goal": "Conversion area with Supabase-backed form and status feedback"
+    },
+    {
+      "id": "footer",
+      "selector": ".dm-footer",
+      "goal": "Legal/brand summary plus links"
+    }
+  ],
+  "interactionFlow": {
+    "sourceFile": "src/pages/index.astro",
+    "flows": [
+      {
+        "name": "Ripple effect",
+        "trigger": "Click on .ripple-container",
+        "result": "Temporary span.ripple-effect inserted and removed"
+      },
+      {
+        "name": "Reveal on scroll",
+        "trigger": "IntersectionObserver on .reveal",
+        "result": "Adds .visible and unobserves element"
+      },
+      {
+        "name": "Count-up animation",
+        "trigger": "IntersectionObserver on .count-up",
+        "result": "Animates value from 0 to data-target with cubic easing"
+      },
+      {
+        "name": "Counter fetch",
+        "trigger": "Page load",
+        "result": "Reads waitlist count from Supabase content-range header or falls back to '-'"
+      },
+      {
+        "name": "Waitlist submit",
+        "trigger": "Submit #waitlist-form",
+        "result": "POST to Supabase rest endpoint with email, expectation, referrer"
+      }
+    ]
+  },
+  "formContract": {
+    "requiredEnv": [
+      "PUBLIC_SUPABASE_URL",
+      "PUBLIC_SUPABASE_ANON_KEY"
+    ],
+    "endpoint": "/rest/v1/waitlist",
+    "method": "POST",
+    "payloadFields": [
+      "email",
+      "what_they_expect",
+      "referrer"
+    ],
+    "successLogic": "res.ok OR status 409 shows success wrapper",
+    "errorLogic": "Shows status message and re-enables submit button"
+  },
+  "designSystem": {
+    "tokens": {
+      "colors": [
+        "--acid",
+        "--navy",
+        "--coral",
+        "--cream",
+        "--cream-dark",
+        "--navy-2"
+      ],
+      "typography": [
+        "--mono",
+        "--serif",
+        "--h1",
+        "--h2",
+        "--body"
+      ],
+      "spacing": [
+        "--section-x",
+        "--section-y"
+      ]
+    },
+    "coreComponents": [
+      "btn",
+      "dm-nav",
+      "hero",
+      "stats-grid",
+      "crime-card",
+      "proof-card",
+      "solution-card",
+      "waitlist-form",
+      "form-status",
+      "dm-footer"
+    ],
+    "effects": [
+      "glitch",
+      "ripple",
+      "scan-lines",
+      "noise",
+      "slide-up",
+      "magnetic"
+    ]
+  },
+  "responsiveStrategy": {
+    "base": "Mobile-first defaults are defined outside media queries",
+    "breakpoints": [
+      {
+        "minWidth": "48rem",
+        "changes": [
+          "Hero switches to 2-column layout",
+          "hero-panel becomes visible",
+          "stats/proof/solution move to multi-column grids",
+          "reveal animation transitions enabled"
+        ]
+      },
+      {
+        "minWidth": "64rem",
+        "changes": [
+          "proof-grid and solution-grid become 3 columns"
+        ]
+      }
+    ],
+    "accessibilityMotion": "prefers-reduced-motion reduces animation and transition duration"
+  },
+  "filesInFrontendScope": [
+    "src/pages/index.astro",
+    "src/pages/privacy.astro",
+    "src/layouts/Base.astro",
+    "src/styles/global.css",
+    "public/robots.txt",
+    "public/llms.txt",
+    "tailwind.config.mjs"
+  ],
+  "knownOperationalNotes": [
+    "If env vars are missing, waitlist submit is intentionally disabled with visible message",
+    "Counter can show '-' if Supabase response header is unavailable",
+    "Footer privacy link expects /privacy route to exist"
+  ]
+}

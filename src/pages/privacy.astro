@@ -1,0 +1,29 @@
+---
+import Base from '../layouts/Base.astro';
+const lastUpdated = '2026-04-24';
+---
+<Base
+  title="Privacy - DUMB MONEY"
+  description="Privacy policy for the Dumb Money waitlist and product access."
+  modifiedTime={new Date(`${lastUpdated}T00:00:00.000Z`).toISOString()}
+  authorName="Dumb Money Research Desk"
+>
+  <main class="section section-alt">
+    <div class="container">
+      <h1 class="display h2">Privacy</h1>
+      <p class="paragraph"><strong>Last updated:</strong> <time datetime={lastUpdated}>{lastUpdated}</time></p>
+      <p class="paragraph">
+        We only collect the minimum information required to manage the waitlist.
+        We do not sell your data. We do not route your data to brokers or market makers.
+      </p>
+      <p class="paragraph">
+        This product provides market intelligence and analysis tooling.
+        It does not provide financial advice, portfolio management, or trade execution.
+      </p>
+      <p class="paragraph">
+        If you want your information removed, contact
+        <a href="mailto:gm@dumbmoney.io">gm@dumbmoney.io</a>.
+      </p>
+    </div>
+  </main>
+</Base>

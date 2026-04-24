@@ -1,0 +1,46 @@
+---
+import Base from '../../layouts/Base.astro';
+import SeoSchema from '../../components/SeoSchema.astro';
+import AuthorByline from '../../components/AuthorByline.astro';
+
+const lastUpdated = '2026-04-24';
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'Why should retail investors care about PFOF?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Because routing incentives can influence execution quality and market transparency, even when explicit commissions are zero.',
+      },
+    },
+  ],
+};
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://dumbmoney.io/' },
+    { '@type': 'ListItem', position: 2, name: 'PFOF Hub', item: 'https://dumbmoney.io/pfof' },
+  ],
+};
+---
+<Base
+  title="PFOF Hub - DUMB MONEY"
+  description="Answer-first hub covering payment for order flow mechanics, incentives, and source-backed context."
+  modifiedTime={new Date(`${lastUpdated}T00:00:00.000Z`).toISOString()}
+  authorName="Dumb Money Research Desk"
+>
+  <main class="section section-alt">
+    <div class="container">
+      <h1 class="display h2">Payment for Order Flow (PFOF) Hub</h1>
+      <p class="paragraph"><strong>TL;DR:</strong> Commission-free is not cost-free; PFOF changes who pays and who captures spread economics.</p>
+      <AuthorByline date={lastUpdated} reviewer="Market Structure Editor" />
+      <p class="paragraph">Start here: <a href="/explainers/how-pfof-works">How PFOF works</a>, then review our <a href="/data/pfof-routing-dataset">routing dataset snapshot</a>.</p>
+    </div>
+  </main>
+  <SeoSchema schema={faqSchema} />
+  <SeoSchema schema={breadcrumbSchema} />
+</Base>

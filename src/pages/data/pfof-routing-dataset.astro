@@ -1,0 +1,35 @@
+---
+import Base from '../../layouts/Base.astro';
+import SeoSchema from '../../components/SeoSchema.astro';
+import AuthorByline from '../../components/AuthorByline.astro';
+
+const lastUpdated = '2026-04-24';
+const datasetSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  name: 'PFOF routing concentration snapshot',
+  description: 'Structured summary of publicly disclosed routing concentration and execution context for major retail channels.',
+  creator: {
+    '@type': 'Organization',
+    name: 'DUMB MONEY',
+  },
+  url: 'https://dumbmoney.io/data/pfof-routing-dataset',
+  keywords: ['PFOF', 'order routing', 'market structure', 'retail execution'],
+};
+---
+<Base
+  title="PFOF Routing Dataset - DUMB MONEY"
+  description="Dataset-style snapshot of routing concentration and execution context for retail flow."
+  modifiedTime={new Date(`${lastUpdated}T00:00:00.000Z`).toISOString()}
+  authorName="Dumb Money Research Desk"
+>
+  <main class="section section-alt">
+    <div class="container">
+      <h1 class="display h2">PFOF Routing Dataset</h1>
+      <p class="paragraph"><strong>TL;DR:</strong> Retail flow concentration remains material, and concentration affects resilience and pricing outcomes.</p>
+      <AuthorByline date={lastUpdated} reviewer="Data Quality Review" />
+      <p class="paragraph">This page is a dataset-style companion to the <a href="/pfof">PFOF hub</a>. Method notes live in <a href="/methodology">Methodology</a>.</p>
+    </div>
+  </main>
+  <SeoSchema schema={datasetSchema} />
+</Base>

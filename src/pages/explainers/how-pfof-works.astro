@@ -1,0 +1,34 @@
+---
+import Base from '../../layouts/Base.astro';
+import SeoSchema from '../../components/SeoSchema.astro';
+import AuthorByline from '../../components/AuthorByline.astro';
+
+const lastUpdated = '2026-04-24';
+const howToSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'HowTo',
+  name: 'How payment for order flow works',
+  step: [
+    { '@type': 'HowToStep', name: 'Order placement', text: 'A retail investor places an order in a broker app.' },
+    { '@type': 'HowToStep', name: 'Routing decision', text: 'The broker routes the order to a market maker with payment arrangements.' },
+    { '@type': 'HowToStep', name: 'Execution', text: 'The market maker executes and captures spread economics where applicable.' },
+    { '@type': 'HowToStep', name: 'Disclosure review', text: 'Investors review Rule 606 and related disclosures for routing context.' },
+  ],
+};
+---
+<Base
+  title="How PFOF Works - DUMB MONEY"
+  description="Step-by-step explainer for payment for order flow and routing incentives."
+  modifiedTime={new Date(`${lastUpdated}T00:00:00.000Z`).toISOString()}
+  authorName="Dumb Money Research Desk"
+>
+  <main class="section section-alt">
+    <div class="container">
+      <h1 class="display h2">How PFOF Works</h1>
+      <p class="paragraph"><strong>TL;DR:</strong> Your order can be routed by incentive contracts before reaching displayed markets.</p>
+      <AuthorByline date={lastUpdated} />
+      <p class="paragraph">For source methodology see <a href="/methodology">Methodology</a>. Return to <a href="/pfof">PFOF hub</a>.</p>
+    </div>
+  </main>
+  <SeoSchema schema={howToSchema} />
+</Base>

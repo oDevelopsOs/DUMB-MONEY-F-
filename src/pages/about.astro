@@ -1,0 +1,15 @@
+---
+import Base from '../layouts/Base.astro';
+import AuthorByline from '../components/AuthorByline.astro';
+const lastUpdated = '2026-04-24';
+---
+<Base title="About - DUMB MONEY" description="Founding mission and editorial philosophy behind Dumb Money." modifiedTime={new Date(`${lastUpdated}T00:00:00.000Z`).toISOString()}>
+  <main class="section section-alt">
+    <div class="container">
+      <h1 class="display h2">About Dumb Money</h1>
+      <AuthorByline date={lastUpdated} />
+      <p class="paragraph">Dumb Money exists to reduce information asymmetry in public markets by translating market-structure mechanics into practical intelligence for retail investors.</p>
+      <p class="paragraph">We prioritize primary sources, transparent updates, and clear boundaries: we do not execute trades and we do not provide personalized financial advice.</p>
+    </div>
+  </main>
+</Base>

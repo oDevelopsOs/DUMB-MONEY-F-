@@ -1,0 +1,38 @@
+---
+import Base from '../layouts/Base.astro';
+const lastUpdated = '2026-04-24';
+---
+<Base
+  title="PFOF Cost Calculator - DUMB MONEY"
+  description="Quick estimator for potential execution drag under spread and routing assumptions."
+  modifiedTime={new Date(`${lastUpdated}T00:00:00.000Z`).toISOString()}
+  authorName="Dumb Money Research Desk"
+>
+  <main class="section section-alt">
+    <div class="container">
+      <h1 class="display h2">PFOF Cost Calculator</h1>
+      <p class="paragraph">Estimate annual execution drag from average notional per trade, trade count, and per-trade spread impact.</p>
+      <form class="waitlist-form" id="pfof-calc">
+        <input id="trades" type="number" min="1" placeholder="Trades per year" required />
+        <input id="notional" type="number" min="1" placeholder="Avg notional per trade (USD)" required />
+        <input id="bps" type="number" min="0" step="0.01" placeholder="Estimated drag (bps)" required />
+        <button class="btn btn-dark" type="submit">Estimate</button>
+      </form>
+      <p id="calc-result" class="paragraph navy" aria-live="polite"></p>
+    </div>
+  </main>
+</Base>
+
+<script>
+  const form = document.getElementById('pfof-calc');
+  const result = document.getElementById('calc-result');
+  form?.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const trades = Number(document.getElementById('trades')?.value || 0);
+    const notional = Number(document.getElementById('notional')?.value || 0);
+    const bps = Number(document.getElementById('bps')?.value || 0);
+    const annualDrag = trades * notional * (bps / 10000);
+    if (!Number.isFinite(annualDrag)) return;
+    result.textContent = `Estimated annual execution drag: $${annualDrag.toFixed(2)}`;
+  });
+</script>

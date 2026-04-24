@@ -1,0 +1,85 @@
+---
+import '../styles/global.css';
+import SeoSchema from '../components/SeoSchema.astro';
+
+const {
+  title = 'DUMB MONEY - The market works perfectly. For them.',
+  description = 'Retail investors finally get access to the market intelligence stack that institutions use.',
+  image = '/og-image.png',
+  modifiedTime = new Date().toISOString(),
+  publishedTime,
+  authorName = 'Dumb Money Research Desk',
+} = Astro.props;
+
+const imageUrl = new URL(image, Astro.site).toString();
+const orgSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  '@id': 'https://dumbmoney.io/#organization',
+  name: 'DUMB MONEY',
+  url: 'https://dumbmoney.io',
+  logo: 'https://dumbmoney.io/dumb-money-logo.png',
+  description: 'Evidence-first market-structure intelligence for retail investors.',
+};
+const appSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  '@id': 'https://dumbmoney.io/#application',
+  name: 'DUMB MONEY',
+  applicationCategory: 'FinanceApplication',
+  operatingSystem: 'Web',
+  description: 'Institutional-style portfolio, macro and geopolitical intelligence for retail investors.',
+  offers: {
+    '@type': 'Offer',
+    availability: 'https://schema.org/PreOrder',
+    price: '0',
+    priceCurrency: 'USD',
+  },
+  creator: { '@id': 'https://dumbmoney.io/#organization' },
+};
+const pageSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  name: title,
+  description,
+  url: Astro.url.href,
+  dateModified: modifiedTime,
+  ...(publishedTime ? { datePublished: publishedTime } : {}),
+  author: { '@type': 'Person', name: authorName },
+  publisher: { '@id': 'https://dumbmoney.io/#organization' },
+};
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <meta name="theme-color" content="#0D0F1C" />
+    <link rel="canonical" href={Astro.url.href} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={Astro.url.href} />
+    <meta property="og:image" content={imageUrl} />
+    <meta property="og:site_name" content="DUMB MONEY" />
+    <meta property="article:modified_time" content={modifiedTime} />
+    {publishedTime && <meta property="article:published_time" content={publishedTime} />}
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={imageUrl} />
+
+    <SeoSchema schema={orgSchema} />
+    <SeoSchema schema={appSchema} />
+    <SeoSchema schema={pageSchema} />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

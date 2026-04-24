@@ -1,0 +1,14 @@
+---
+import Base from '../layouts/Base.astro';
+const lastUpdated = '2026-04-24';
+---
+<Base title="Methodology - DUMB MONEY" description="How Dumb Money sources, validates, and updates market-structure content." modifiedTime={new Date(`${lastUpdated}T00:00:00.000Z`).toISOString()}>
+  <main class="section section-alt">
+    <div class="container">
+      <h1 class="display h2">Methodology</h1>
+      <p class="paragraph"><strong>Last updated:</strong> <time datetime={lastUpdated}>{lastUpdated}</time></p>
+      <p class="paragraph">Claims are anchored to primary documents whenever possible: SEC filings, FINRA records, official disclosures, and source publications.</p>
+      <p class="paragraph">Every material factual section includes traceable references. If new evidence changes a conclusion, we revise the page and record the change in our corrections log.</p>
+    </div>
+  </main>
+</Base>
