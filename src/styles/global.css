@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@500;700&family=IBM+Plex+Mono:wght@400;600&family=Playfair+Display:wght@700;900&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -8,14 +6,14 @@
   --bg: #0a0a0f;
   --bg-alt: #111118;
   --text: #f5f0e8;
-  --muted: #b8b1a8;
+  --muted: #c8c1b7;
   --danger: #e63946;
   --intel: #00ff87;
   --amber: #ffb800;
   --line: #242430;
-  --mono: 'IBM Plex Mono', monospace;
-  --serif: 'Playfair Display', Georgia, serif;
-  --ui: 'DM Sans', Arial, sans-serif;
+  --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+  --serif: Georgia, 'Times New Roman', Times, serif;
+  --ui: Inter, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
   --section-x: clamp(1rem, 3vw, 2.6rem);
   --section-y: clamp(2.8rem, 7vw, 5.2rem);
   --h1: clamp(2.2rem, 11vw, 6rem);
@@ -409,7 +407,7 @@ a {
 }
 
 .quote span {
-  color: #4c3922;
+  color: #2d2214;
 }
 
 .waitlist {
@@ -453,7 +451,7 @@ a {
 .form-microcopy {
   margin: 0.6rem 0 0;
   font-size: 0.74rem;
-  color: #3c352e;
+  color: #2f2822;
   line-height: 1.5;
 }
 
