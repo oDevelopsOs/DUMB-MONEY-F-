@@ -61,6 +61,37 @@ Behavior:
 - missing env -> visible status fallback
 - submit success on `2xx` or `409`
 
+## Vercel + Supabase (production waitlist)
+
+1. **Supabase (once per project)**  
+   SQL Editor → New query → paste and run the full file  
+   [`supabase/setup_waitlist_one_shot.sql`](supabase/setup_waitlist_one_shot.sql)  
+   (Same as running `migrations/20260424_waitlist_hardening.sql` plus the optional counter migration.)
+
+2. **Supabase → Project Settings → API**  
+   Copy **Project URL** and **service_role** key (not `anon` for this API).
+
+3. **Vercel → your site → Settings → Environment Variables**  
+   Add for **Production** (and **Preview** if you use preview URLs):
+
+   | Name | Value |
+   |------|--------|
+   | `SUPABASE_URL` | `https://YOUR_PROJECT_REF.supabase.co` |
+   | `SUPABASE_SERVICE_ROLE_KEY` | service_role secret |
+
+4. **Redeploy** the project (rebuild so serverless picks up env vars).
+
+5. **Smoke test** (replace host if yours differs):
+
+   - `GET https://dumb-moneyy.vercel.app/api/waitlist` → `{"ok":true,"count":...}`
+   - `POST` same URL with JSON body `{"email":"you@example.com"}` → `201` or `409` duplicate
+
+   If **POST returns `405`**, the route is still being served as a static file: redeploy after pulling the latest code (`src/pages/api/waitlist.ts` must export `prerender = false` so Vercel runs it as a serverless function).
+
+Local dev: copy [`.env.example`](.env.example) to `.env` with the same two variables, then `npm run dev`.
+
+**Note:** Enabling **Integrations → Data API** in Supabase is not required for this flow; the Astro route uses the JS client with `SUPABASE_URL` + service role on the server only.
+
 ## Interaction System
 
 Implemented in `index.astro` script:
