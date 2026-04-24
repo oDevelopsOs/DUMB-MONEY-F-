@@ -4,7 +4,7 @@
   "version": "0.1.0",
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
+    "build": "node ./node_modules/astro/astro.js build",
     "preview": "astro preview",
     "indexnow:ping": "node scripts/ping-indexnow.mjs"
   },
