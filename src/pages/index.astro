@@ -504,8 +504,8 @@ const faqSchema = {
   }, 900);
 
   async function loadCounter() {
-    /** Never show “0”: below this floor we display the floor; at/above it we show the real count. */
-    const WAITLIST_COUNTER_FLOOR = 357;
+    /** Display = 357 + real signups (0 → 357, 10 → 367). */
+    const WAITLIST_COUNTER_BASE = 357;
     const counterElement = document.getElementById('counter');
     const counterCopy = document.getElementById('counter-copy');
     if (!counterElement) return;
@@ -518,7 +518,7 @@ const faqSchema = {
         counterCopy?.setAttribute('hidden', 'true');
         return;
       }
-      const display = raw < WAITLIST_COUNTER_FLOOR ? WAITLIST_COUNTER_FLOOR : raw;
+      const display = WAITLIST_COUNTER_BASE + raw;
       counterElement.textContent = display.toLocaleString('en-US');
       counterCopy?.removeAttribute('hidden');
     } catch {
