@@ -59,6 +59,15 @@ const faqSchema = {
   authorName="Dumb Money Research Desk"
 >
   <main>
+    <aside class="section-progress" aria-label="Reading progress">
+      <a href="#hero" data-section-link="hero" aria-label="Go to Hero"></a>
+      <a href="#crime" data-section-link="crime" aria-label="Go to The Crime"></a>
+      <a href="#numbers" data-section-link="numbers" aria-label="Go to The Numbers"></a>
+      <a href="#mirror" data-section-link="mirror" aria-label="Go to The Mirror"></a>
+      <a href="#verdict" data-section-link="verdict" aria-label="Go to The Verdict"></a>
+      <a href="#solution" data-section-link="solution" aria-label="Go to The Weapon"></a>
+      <a href="#waitlist" data-section-link="waitlist" aria-label="Go to Waitlist"></a>
+    </aside>
     <nav class="dm-nav">
       <a href="/" class="brand-link" aria-label="Dumb Money home">
         <img
@@ -81,8 +90,13 @@ const faqSchema = {
           <h1 class="display hero-title-main">The market has worked perfectly for decades.</h1>
           <h1 class="display hero-title-acid">For <span>them.</span></h1>
           <p class="lead">
+            The generation before you bought houses at 3x their salary, got pensions, and then designed a financial
+            system with $25,000/year terminals and hidden fees.
+          </p>
+          <p class="lead">
+            They called you dumb money.
             Your broker calls you a client. Citadel calls you inventory.
-            <strong> We call it what it is: you are the product.</strong>
+            <strong> We call it what it is: the game was rigged before you sat down.</strong>
           </p>
           <div class="hero-cta">
             <a href="#crime" id="hero-primary-cta" class="btn ripple-container magnetic">Show me how this game is rigged</a>
@@ -104,7 +118,10 @@ const faqSchema = {
     <section class="section section-dark crime scan-lines" id="crime">
       <div class="container">
         <p class="kicker acid reveal">The crime</p>
-        <h2 class="display h2 reveal">“Free trading” is the most successful financial scam since “I love you” in an MLM pitch.</h2>
+        <h2 class="display h2 reveal">“Free trading” is what a generation hands you after making housing unaffordable, gutting pensions, and leaving you investing as the only path left to build something real.</h2>
+        <p class="paragraph reveal">
+          Then they monetized that too.
+        </p>
         <p class="paragraph reveal">
           When you place an order on Robinhood, eToro, or any app yelling “democratizing finance,”
           your order often does not go to market first. It takes a VIP detour through Citadel, Virtu, or G1.
@@ -164,8 +181,14 @@ const faqSchema = {
           If you've ever felt the market was playing against you, you were not paranoid.
         </h2>
         <p class="paragraph reveal">
-          You studied. You read. You did more homework than a med student on caffeine.
-          You bought when it made sense. Then it moved against you and someone in a vest said “you are too emotional.”
+          You did everything right.
+        </p>
+        <p class="paragraph reveal">
+          You got the degree. Moved to the city. Watched the housing market from the outside.
+          Started investing because someone said it was the only way left to build something.
+        </p>
+        <p class="paragraph reveal">
+          Then it moved against you and someone in a vest said “you are too emotional.”
         </p>
         <p class="paragraph reveal">
           Nobody told you that while you were reading one headline, an institutional stack
@@ -173,7 +196,7 @@ const faqSchema = {
         </p>
         <p class="paragraph reveal">
           You did not fail because you are bad at investing.
-          You were trading yesterday's information against systems trading in microseconds.
+          You were handed a rigged table and blamed for losing.
         </p>
       </div>
     </section>
@@ -182,15 +205,17 @@ const faqSchema = {
       <div class="container">
         <p class="kicker reveal">The verdict</p>
         <h2 class="display h2 reveal">
-          The system is not broken. But access to the intelligence behind it is no longer exclusive.
+          The system is not broken. It worked exactly as designed — for a generation that already had the capital,
+          the connections, and the $25,000/year terminals.
         </h2>
         <p class="paragraph navy reveal">
-          Their edge had two pillars: capital and information.
-          Capital is still theirs. Information does not have to be.
+          That generation is not giving any of that back.
         </p>
         <p class="paragraph navy reveal">
-          The point is not to copy Wall Street's ethics.
-          The point is to turn asymmetry into something you can actually fight with.
+          But information is different. Information is now a problem technology can solve.
+        </p>
+        <p class="paragraph navy reveal">
+          Capital is still theirs. Information no longer has to be.
         </p>
         <a href="#waitlist" class="btn btn-secondary reveal">Fine. I'm listening.</a>
       </div>
@@ -199,10 +224,10 @@ const faqSchema = {
     <section class="section section-dark solution" id="solution">
       <div class="container">
         <p class="kicker acid reveal">The weapon</p>
-        <h2 class="display h2 reveal">They built the casino. You just learned to count cards.</h2>
+        <h2 class="display h2 reveal">They built the casino. They wrote the rules. They made the terminals cost $25,000 a year.</h2>
         <p class="paragraph reveal">
-          DUMB MONEY is not a brokerage app. It does not scream “buy this now.”
-          It is an intelligence system for investors who prefer context over dopamine.
+          You just got access to the same intelligence.
+          For the price of a coffee a day.
         </p>
         <div class="solution-grid">
           <article class="solution-card dark reveal">
@@ -273,8 +298,11 @@ const faqSchema = {
         <p class="kicker navy reveal">Pick a side</p>
         <h2 class="display h2 navy reveal">Be first in.</h2>
         <p class="paragraph navy reveal">
-          Active development. Priority access list. Limited seats because we are shipping with real
-          users and real feedback, not fake scarcity copy. (If we faked scarcity we'd at least hire better writers.)
+          Active development. Priority access list.
+          We ship with real users because we were built by one.
+        </p>
+        <p class="paragraph navy reveal">
+          The generation that got priced out of everything does not get priced out of this.
         </p>
         <p class="counter-copy reveal" id="counter-copy"><span id="counter">-</span> people already picked their side.</p>
         <div id="form-wrapper" class="form-wrapper reveal">
@@ -484,6 +512,24 @@ const faqSchema = {
   }
 
   loadCounter();
+
+  const sectionLinks = Array.from(document.querySelectorAll('[data-section-link]'));
+  const trackedSections = ['hero', 'crime', 'numbers', 'mirror', 'verdict', 'solution', 'waitlist']
+    .map((id) => document.getElementById(id))
+    .filter(Boolean);
+
+  const sectionObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      const activeId = entry.target.id;
+      sectionLinks.forEach((link) => {
+        const isActive = link.dataset.sectionLink === activeId;
+        link.classList.toggle('active', isActive);
+      });
+    });
+  }, { rootMargin: '-30% 0px -55% 0px', threshold: 0.01 });
+
+  trackedSections.forEach((section) => sectionObserver.observe(section));
 
   const form = document.getElementById('waitlist-form');
   const formWrapper = document.getElementById('form-wrapper');

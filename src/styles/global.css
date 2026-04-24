@@ -87,6 +87,10 @@ a {
   transform: translateY(-102%);
 }
 
+.section-progress {
+  display: none;
+}
+
 .brand-link {
   display: inline-flex;
   align-items: center;
@@ -571,6 +575,32 @@ a {
 }
 
 @media (min-width: 48rem) {
+  .section-progress {
+    position: fixed;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 220;
+    display: grid;
+    gap: 0.45rem;
+  }
+
+  .section-progress a {
+    width: 0.65rem;
+    height: 0.65rem;
+    border-radius: 999px;
+    border: 1px solid #525260;
+    background: rgba(22, 22, 31, 0.75);
+    display: block;
+    transition: transform 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+  }
+
+  .section-progress a.active {
+    background: var(--intel);
+    border-color: var(--intel);
+    transform: scale(1.2);
+  }
+
   .hero {
     min-height: max(84vh, 38rem);
   }
