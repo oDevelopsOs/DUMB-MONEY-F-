@@ -1,11 +1,19 @@
 const INDEXNOW_ENDPOINT = 'https://api.indexnow.org/indexnow';
 export const prerender = false;
 
+function serverEnv(name: string): string | undefined {
+  if (typeof process !== 'undefined' && process.env?.[name]) {
+    return process.env[name];
+  }
+  return import.meta.env[name];
+}
+
 export async function POST({ request }) {
   const body = await request.json().catch(() => ({}));
-  const key = import.meta.env.INDEXNOW_KEY;
-  const keyLocation = import.meta.env.INDEXNOW_KEY_LOCATION || `https://dumb-moneyy.vercel.app/${key}.txt`;
-  const host = import.meta.env.INDEXNOW_HOST || 'dumb-moneyy.vercel.app';
+  const key = serverEnv('INDEXNOW_KEY');
+  const keyLocation =
+    serverEnv('INDEXNOW_KEY_LOCATION') || `https://dumb-moneyy.vercel.app/${key}.txt`;
+  const host = serverEnv('INDEXNOW_HOST') || 'dumb-moneyy.vercel.app';
   const incomingUrls = Array.isArray(body?.urls) ? body.urls : [];
 
   if (!key || !incomingUrls.length) {

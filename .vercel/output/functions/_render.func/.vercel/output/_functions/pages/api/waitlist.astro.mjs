@@ -1,6 +1,8 @@
+import { createClient } from '@supabase/supabase-js';
 import { createHash } from 'node:crypto';
 export { renderers } from '../../renderers.mjs';
 
+const __vite_import_meta_env__ = {"ASSETS_PREFIX": undefined, "BASE_URL": "/", "DEV": false, "MODE": "production", "PROD": true, "SITE": "https://dumb-moneyy.vercel.app", "SSR": true};
 const prerender = false;
 const RATE_LIMIT_WINDOW_MS = 10 * 60 * 1e3;
 const RATE_LIMIT_MAX_REQUESTS = 10;
@@ -33,8 +35,17 @@ function consumeRateLimit(ip) {
 function isValidEmail(email) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
+function serverSecret(name) {
+  if (typeof process !== "undefined" && process.env?.[name]) {
+    return process.env[name];
+  }
+  return Object.assign(__vite_import_meta_env__, { OS: process.env.OS })[name];
+}
 function getSupabaseAdmin() {
-  return null;
+  const supabaseUrl = serverSecret("SUPABASE_URL");
+  const serviceRole = serverSecret("SUPABASE_SERVICE_ROLE_KEY");
+  if (!supabaseUrl || !serviceRole) return null;
+  return createClient(supabaseUrl, serviceRole, { auth: { persistSession: false } });
 }
 async function GET() {
   const start = Date.now();

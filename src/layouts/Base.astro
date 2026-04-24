@@ -1,7 +1,6 @@
 ---
 import '../styles/global.css';
 import SeoSchema from '../components/SeoSchema.astro';
-import Analytics from '@vercel/analytics/astro';
 
 const {
   title = 'DUMB MONEY - The market works perfectly. For them.',
@@ -85,6 +84,5 @@ const pageSchema = {
   </head>
   <body>
     <slot />
-    <Analytics />
   </body>
 </html>

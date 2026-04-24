@@ -40,9 +40,17 @@ function isValidEmail(email: string) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
 
+/** Vercel/Netlify inject secrets at runtime via `process.env`. `import.meta.env` is often empty at build time, so Vite can dead-strip Supabase and you get 500 + "Server configuration missing." */
+function serverSecret(name: 'SUPABASE_URL' | 'SUPABASE_SERVICE_ROLE_KEY'): string | undefined {
+  if (typeof process !== 'undefined' && process.env?.[name]) {
+    return process.env[name];
+  }
+  return import.meta.env[name];
+}
+
 function getSupabaseAdmin() {
-  const supabaseUrl = import.meta.env.SUPABASE_URL;
-  const serviceRole = import.meta.env.SUPABASE_SERVICE_ROLE_KEY;
+  const supabaseUrl = serverSecret('SUPABASE_URL');
+  const serviceRole = serverSecret('SUPABASE_SERVICE_ROLE_KEY');
   if (!supabaseUrl || !serviceRole) return null;
   return createClient(supabaseUrl, serviceRole, { auth: { persistSession: false } });
 }

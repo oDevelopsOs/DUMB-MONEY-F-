@@ -57,6 +57,8 @@ Supabase backend requirements (server-side):
 - `SUPABASE_URL`
 - `SUPABASE_SERVICE_ROLE_KEY`
 
+On **Vercel/Netlify**, those values exist at **runtime** in `process.env`. The API route reads `process.env` first so the build does not strip Supabase (using only `import.meta.env` without build-time values can compile to “always missing” and return 500).
+
 Behavior:
 - missing env -> visible status fallback
 - submit success on `2xx` or `409`
