@@ -94,9 +94,9 @@ const faqSchema = {
 
     <section class="section section-alt" aria-label="Answer first summary">
       <div class="container">
-        <p class="kicker reveal">TL;DR</p>
+        <p class="kicker reveal">What this means for you</p>
         <p class="paragraph reveal">
-          Payment for order flow is not free magic; it is a routing business model with incentives that can diverge from your execution quality. Dumb Money explains that system with source-backed, retail-first intelligence.
+          “Free trading” is not free. Your order gets routed through firms that profit from your flow. We break that system down with real sources, plain language, and zero Wall Street spin.
         </p>
       </div>
     </section>
@@ -134,23 +134,23 @@ const faqSchema = {
         <h2 class="display h2 reveal">Not opinions. Math with a grudge.</h2>
         <div class="stats-grid reveal">
           <article class="scard">
-            <p class="count-up stat-value" data-target="$3.8B">$0B</p>
+            <p class="count-up stat-value" data-target="3.8" data-prefix="$" data-suffix="B">$0B</p>
             <p class="stat-label">Broker revenue from selling your flow in one year. Nice business model.</p>
           </article>
           <article class="scard">
-            <p class="count-up stat-value coral-value" data-target="$34.1M">$0M</p>
+            <p class="count-up stat-value coral-value" data-target="34.1" data-prefix="$" data-suffix="M">$0M</p>
             <p class="stat-label">Inferior execution harm estimated by the SEC for a specific retail order slice.</p>
           </article>
           <article class="scard">
-            <p class="count-up stat-value acid-value" data-target="83%">0%</p>
+            <p class="count-up stat-value acid-value" data-target="83" data-suffix="%">0%</p>
             <p class="stat-label">Retail order flow concentrated in three execution firms. Competition vibes.</p>
           </article>
           <article class="scard">
-            <p class="count-up stat-value" data-target="$32K">$0K</p>
+            <p class="count-up stat-value" data-target="32" data-prefix="$" data-suffix="K">$0K</p>
             <p class="stat-label">Bloomberg terminal cost per desk, per year (rough 2025-2026 range).</p>
           </article>
           <article class="scard">
-            <p class="count-up stat-value coral-value" data-target="6.1%">0%</p>
+            <p class="count-up stat-value coral-value" data-target="6.1" data-suffix="%">0%</p>
             <p class="stat-label">Long-run annual retail underperformance vs S&P. Not stupidity. Information gap.</p>
           </article>
         </div>
@@ -276,7 +276,7 @@ const faqSchema = {
           Active development. Priority access list. Limited seats because we are shipping with real
           users and real feedback, not fake scarcity copy. (If we faked scarcity we'd at least hire better writers.)
         </p>
-        <p class="counter-copy reveal"><span id="counter">-</span> people already picked their side.</p>
+        <p class="counter-copy reveal" id="counter-copy"><span id="counter">-</span> people already picked their side.</p>
         <div id="form-wrapper" class="form-wrapper reveal">
           <form id="waitlist-form" class="waitlist-form">
             <input type="email" id="email-input" placeholder="you@not-exit-liquidity.com" required autocomplete="email" />
@@ -425,16 +425,14 @@ const faqSchema = {
 
   document.querySelectorAll('.reveal').forEach((element) => revealObserver.observe(element));
 
-  const countObserver = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (!entry.isIntersecting) return;
-      const el = entry.target;
+  const animateCounter = (el) => {
+      if (!el || el.dataset.animated) return;
       const raw = el.dataset.target || '0';
-      const isInt = !raw.includes('.');
-      const end = Number.parseFloat(raw.replace(/[^0-9.]/g, ''));
+      const end = Number.parseFloat(raw);
       if (!Number.isFinite(end)) return;
-      const prefix = raw.match(/^[^0-9]*/)?.[0] || '';
-      const suffix = raw.match(/[^0-9.]+$/)?.[0] || '';
+      const isInt = Number.isInteger(end);
+      const prefix = el.dataset.prefix || '';
+      const suffix = el.dataset.suffix || '';
       const duration = 1600;
       const startTime = performance.now();
       const animate = (now) => {
@@ -444,22 +442,44 @@ const faqSchema = {
         if (progress < 1) requestAnimationFrame(animate);
       };
       requestAnimationFrame(animate);
+      el.dataset.animated = 'true';
+  };
+
+  const countObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      const el = entry.target;
+      animateCounter(el);
       countObserver.unobserve(el);
     });
   }, { threshold: 0.4 });
 
   document.querySelectorAll('.count-up').forEach((element) => countObserver.observe(element));
+  setTimeout(() => {
+    document.querySelectorAll('.count-up').forEach((element) => {
+      if (!element.dataset.animated) {
+        animateCounter(element);
+      }
+    });
+  }, 900);
 
   async function loadCounter() {
     const counterElement = document.getElementById('counter');
+    const counterCopy = document.getElementById('counter-copy');
     if (!counterElement) return;
     try {
       const response = await fetch(waitlistEndpoint, { method: 'GET' });
+      if (!response.ok) throw new Error('Counter endpoint failed');
       const data = await response.json().catch(() => ({}));
       const value = Number.parseInt(`${data?.count ?? ''}`, 10);
-      counterElement.textContent = Number.isFinite(value) ? value.toLocaleString('en-US') : '-';
+      if (!Number.isFinite(value)) {
+        counterCopy?.setAttribute('hidden', 'true');
+        return;
+      }
+      counterElement.textContent = value.toLocaleString('en-US');
+      counterCopy?.removeAttribute('hidden');
     } catch {
-      counterElement.textContent = '-';
+      counterCopy?.setAttribute('hidden', 'true');
     }
   }
 
