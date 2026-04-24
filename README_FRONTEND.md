@@ -79,9 +79,11 @@ Behavior:
    | `SUPABASE_URL` | `https://YOUR_PROJECT_REF.supabase.co` |
    | `SUPABASE_SERVICE_ROLE_KEY` | service_role secret |
 
-4. **Redeploy** the project (rebuild so serverless picks up env vars).
+4. **Node.js on Vercel:** the project pins **Node 20** (`engines.node` in `package.json` and `.nvmrc`). `@astrojs/vercel` 7.x maps unknown Node majors (e.g. **22**) to **`nodejs18.x`**, which Vercel may reject. After every Astro build that emits `.vercel/output`, `scripts/fix-vercel-node-runtime.mjs` (chained in `npm run build`) rewrites any `nodejs18.x` in `.vc-config.json` to **`nodejs20.x`**. In Vercel → Settings → General you can still set **20.x** so the build itself matches production.
 
-5. **Smoke test** (replace host if yours differs):
+5. **Redeploy** the project (rebuild so serverless picks up env vars).
+
+6. **Smoke test** (replace host if yours differs):
 
    - `GET https://dumb-moneyy.vercel.app/api/waitlist` → `{"ok":true,"count":...}`
    - `POST` same URL with JSON body `{"email":"you@example.com"}` → `201` or `409` duplicate

@@ -2,9 +2,12 @@
   "name": "Dumbmoney",
   "type": "module",
   "version": "0.1.0",
+  "engines": {
+    "node": "20.x"
+  },
   "scripts": {
     "dev": "astro dev",
-    "build": "node ./node_modules/astro/astro.js build",
+    "build": "node ./node_modules/astro/astro.js build && node ./scripts/fix-vercel-node-runtime.mjs",
     "preview": "astro preview",
     "indexnow:ping": "node scripts/ping-indexnow.mjs"
   },
