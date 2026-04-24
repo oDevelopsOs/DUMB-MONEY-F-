@@ -297,7 +297,7 @@ const faqSchema = {
         <p class="paragraph navy reveal">
           Does not get priced out of this.
         </p>
-        <p class="counter-copy reveal" id="counter-copy"><span id="counter">-</span> people already picked their side.</p>
+        <p class="counter-copy reveal" id="counter-copy"><span id="counter">357</span> people already picked their side.</p>
         <div id="form-wrapper" class="form-wrapper reveal">
           <form id="waitlist-form" class="waitlist-form">
             <input type="email" id="email-input" placeholder="you@not-exit-liquidity.com" required autocomplete="email" />
@@ -504,6 +504,8 @@ const faqSchema = {
   }, 900);
 
   async function loadCounter() {
+    /** Never show “0”: below this floor we display the floor; at/above it we show the real count. */
+    const WAITLIST_COUNTER_FLOOR = 357;
     const counterElement = document.getElementById('counter');
     const counterCopy = document.getElementById('counter-copy');
     if (!counterElement) return;
@@ -511,12 +513,13 @@ const faqSchema = {
       const response = await fetchWaitlistWithFallback({ method: 'GET' });
       if (!response.ok) throw new Error('Counter endpoint failed');
       const data = await response.json().catch(() => ({}));
-      const value = Number.parseInt(`${data?.count ?? ''}`, 10);
-      if (!Number.isFinite(value)) {
+      const raw = Number.parseInt(`${data?.count ?? ''}`, 10);
+      if (!Number.isFinite(raw) || raw < 0) {
         counterCopy?.setAttribute('hidden', 'true');
         return;
       }
-      counterElement.textContent = value.toLocaleString('en-US');
+      const display = raw < WAITLIST_COUNTER_FLOOR ? WAITLIST_COUNTER_FLOOR : raw;
+      counterElement.textContent = display.toLocaleString('en-US');
       counterCopy?.removeAttribute('hidden');
     } catch {
       counterCopy?.setAttribute('hidden', 'true');
