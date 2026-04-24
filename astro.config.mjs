@@ -6,5 +6,5 @@ export default defineConfig({
   output: 'hybrid',
   adapter: netlify(),
   integrations: [tailwind()],
-  site: 'https://dumbmoney.io',
+  site: 'https://dumbmoneyy.netlify.app',
 });

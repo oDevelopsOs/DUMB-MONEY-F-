@@ -4,6 +4,7 @@ import SeoSchema from '../../components/SeoSchema.astro';
 import AuthorByline from '../../components/AuthorByline.astro';
 
 const lastUpdated = '2026-04-24';
+const siteUrl = 'https://dumbmoneyy.netlify.app';
 const datasetSchema = {
   '@context': 'https://schema.org',
   '@type': 'Dataset',
@@ -13,7 +14,7 @@ const datasetSchema = {
     '@type': 'Organization',
     name: 'DUMB MONEY',
   },
-  url: 'https://dumbmoney.io/data/pfof-routing-dataset',
+  url: `${siteUrl}/data/pfof-routing-dataset`,
   keywords: ['PFOF', 'order routing', 'market structure', 'retail execution'],
 };
 ---

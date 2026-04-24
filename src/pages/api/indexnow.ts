@@ -3,8 +3,8 @@ const INDEXNOW_ENDPOINT = 'https://api.indexnow.org/indexnow';
 export async function POST({ request }) {
   const body = await request.json().catch(() => ({}));
   const key = import.meta.env.INDEXNOW_KEY;
-  const keyLocation = import.meta.env.INDEXNOW_KEY_LOCATION || `https://dumbmoney.io/${key}.txt`;
-  const host = import.meta.env.INDEXNOW_HOST || 'dumbmoney.io';
+  const keyLocation = import.meta.env.INDEXNOW_KEY_LOCATION || `https://dumbmoneyy.netlify.app/${key}.txt`;
+  const host = import.meta.env.INDEXNOW_HOST || 'dumbmoneyy.netlify.app';
   const incomingUrls = Array.isArray(body?.urls) ? body.urls : [];
 
   if (!key || !incomingUrls.length) {

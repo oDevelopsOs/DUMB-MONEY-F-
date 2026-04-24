@@ -13,7 +13,7 @@ const urls = [
 ];
 
 export function GET({ site }) {
-  const base = site || new URL('https://dumbmoney.io');
+  const base = site || new URL('https://dumbmoneyy.netlify.app');
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${urls
