@@ -3,8 +3,8 @@ const INDEXNOW_ENDPOINT = 'https://api.indexnow.org/indexnow';
 export async function POST({ request }) {
   const body = await request.json().catch(() => ({}));
   const key = import.meta.env.INDEXNOW_KEY;
-  const keyLocation = import.meta.env.INDEXNOW_KEY_LOCATION || `https://dumb-money-blond.vercel.app/${key}.txt`;
-  const host = import.meta.env.INDEXNOW_HOST || 'dumb-money-blond.vercel.app';
+  const keyLocation = import.meta.env.INDEXNOW_KEY_LOCATION || `https://dumb-moneyy.vercel.app/${key}.txt`;
+  const host = import.meta.env.INDEXNOW_HOST || 'dumb-moneyy.vercel.app';
   const incomingUrls = Array.isArray(body?.urls) ? body.urls : [];
 
   if (!key || !incomingUrls.length) {

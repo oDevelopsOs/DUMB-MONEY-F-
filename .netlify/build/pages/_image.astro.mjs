@@ -1,6 +1,5 @@
-import '@astrojs/internal-helpers/path';
 import { A as AstroError, N as NoImageMetadata, F as FailedToFetchRemoteImageDimensions, c as ExpectedImageOptions, E as ExpectedImage, d as ExpectedNotESMImage, e as InvalidImageService, f as createAstro, g as createComponent, h as ImageMissingAlt, m as maybeRenderHead, i as addAttribute, s as spreadAttributes, r as renderTemplate } from '../chunks/astro/server_BMCR24Hs.mjs';
-import { r as resolveSrc, i as isRemoteImage, a as isCoreRemotePath, b as isESMImportedImage, c as isLocalService, D as DEFAULT_HASH_PROPS, d as isRemoteAllowed } from '../chunks/astro/assets-service_B3VgJ-94.mjs';
+import { r as resolveSrc, i as isRemoteImage, a as isCoreRemotePath, b as isESMImportedImage, c as isLocalService, D as DEFAULT_HASH_PROPS, d as isRemoteAllowed } from '../chunks/astro/assets-service_8vp_QvHQ.mjs';
 import 'clsx';
 import * as mime from 'mrmime';
 export { renderers } from '../renderers.mjs';
@@ -843,7 +842,7 @@ async function getConfiguredImageService() {
   if (!globalThis?.astroAsset?.imageService) {
     const { default: service } = await import(
       // @ts-expect-error
-      '../chunks/astro/assets-service_B3VgJ-94.mjs'
+      '../chunks/astro/assets-service_8vp_QvHQ.mjs'
     ).then(n => n.s).catch((e) => {
       const error = new AstroError(InvalidImageService);
       error.cause = e;
@@ -929,7 +928,7 @@ async function getImage$1(options, imageConfig) {
   };
 }
 
-const $$Astro$1 = createAstro("https://dumb-money-blond.vercel.app");
+const $$Astro$1 = createAstro("https://dumb-moneyy.vercel.app");
 const $$Image = createComponent(async ($$result, $$props, $$slots) => {
   const Astro2 = $$result.createAstro($$Astro$1, $$props, $$slots);
   Astro2.self = $$Image;
@@ -951,7 +950,7 @@ const $$Image = createComponent(async ($$result, $$props, $$slots) => {
   return renderTemplate`${maybeRenderHead()}<img${addAttribute(image.src, "src")}${spreadAttributes(additionalAttributes)}${spreadAttributes(image.attributes)}>`;
 }, "C:/Users/Helo Uss Uss/OneDrive/Desktop/DUMB_MONEY/Dumbmoney/node_modules/astro/components/Image.astro", void 0);
 
-const $$Astro = createAstro("https://dumb-money-blond.vercel.app");
+const $$Astro = createAstro("https://dumb-moneyy.vercel.app");
 const $$Picture = createComponent(async ($$result, $$props, $$slots) => {
   const Astro2 = $$result.createAstro($$Astro, $$props, $$slots);
   Astro2.self = $$Picture;

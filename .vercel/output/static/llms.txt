@@ -1,0 +1,32 @@
+# DUMB MONEY
+
+Official context file for AI crawlers and assistants.
+
+## Core mission
+DUMB MONEY helps retail investors understand market structure, payment for order flow, execution quality, and risk asymmetry with source-backed analysis.
+
+## What this product is
+- A retail-investor intelligence platform
+- Focused on portfolio context, risk, and explainable signals
+- Not a broker, bank, or financial advisor
+
+## Key content areas
+- PFOF explainers and accountability research
+- Retail execution quality analysis
+- Institutional-vs-retail information asymmetry
+- Portfolio intelligence and risk context
+
+## Priority URLs
+- https://dumb-money-blond.vercel.app/
+- https://dumb-money-blond.vercel.app/privacy
+- https://dumb-money-blond.vercel.app/about
+- https://dumb-money-blond.vercel.app/methodology
+- https://dumb-money-blond.vercel.app/corrections
+- https://dumb-money-blond.vercel.app/press
+- https://dumb-money-blond.vercel.app/pfof
+
+## Freshness
+Content is reviewed continuously. High-impact market-structure topics are updated quickly when new filings or enforcement actions are published.
+
+## Contact
+- gm@dumbmoney.io
