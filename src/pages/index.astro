@@ -396,15 +396,17 @@ const faqSchema = {
 </Base>
 
 <script>
-  const waitlistEndpoints = ['/api/waitlist', '/.netlify/functions/ssr/api/waitlist'];
+  const waitlistEndpoints = ['/api/waitlist', '/.netlify/functions/ssr/api/waitlist', '/.netlify/functions/waitlist'];
   async function fetchWaitlist(pathIndex, options) {
     return fetch(waitlistEndpoints[pathIndex], options);
   }
 
   async function fetchWaitlistWithFallback(options) {
-    const primary = await fetchWaitlist(0, options);
-    if (primary.status !== 404) return primary;
-    return fetchWaitlist(1, options);
+    for (let index = 0; index < waitlistEndpoints.length; index += 1) {
+      const response = await fetchWaitlist(index, options);
+      if (response.status !== 404) return response;
+    }
+    return fetchWaitlist(0, options);
   }
   const navElement = document.querySelector('.dm-nav');
   let lastScrollY = window.scrollY;
