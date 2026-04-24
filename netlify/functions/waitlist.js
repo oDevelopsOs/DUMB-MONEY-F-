@@ -45,10 +45,16 @@ async function getCount(supabaseUrl, serviceRole) {
       Range: '0-0',
     },
   });
-  if (!response.ok) return null;
+  if (!response.ok) {
+    const details = await readErrorBody(response);
+    return { ok: false, details: details?.message || null, status: response.status };
+  }
   const count = response.headers.get('content-range')?.split('/')?.[1];
   const value = Number.parseInt(count || '', 10);
-  return Number.isFinite(value) ? value : null;
+  if (!Number.isFinite(value)) {
+    return { ok: false, details: 'Invalid count response.', status: 500 };
+  }
+  return { ok: true, value };
 }
 
 async function insertWaitlist(supabaseUrl, serviceRole, payload) {
@@ -64,6 +70,15 @@ async function insertWaitlist(supabaseUrl, serviceRole, payload) {
   });
 }
 
+async function readErrorBody(response) {
+  const text = await response.text().catch(() => '');
+  try {
+    return JSON.parse(text || '{}');
+  } catch {
+    return { message: text };
+  }
+}
+
 exports.handler = async function handler(event) {
   const supabaseUrl = process.env.SUPABASE_URL;
   const serviceRole = process.env.SUPABASE_SERVICE_ROLE_KEY;
@@ -72,9 +87,18 @@ exports.handler = async function handler(event) {
   }
 
   if (event.httpMethod === 'GET') {
-    const count = await getCount(supabaseUrl, serviceRole);
-    if (count === null) return json(502, { ok: false, error: 'Failed to load counter.' });
-    return json(200, { ok: true, count });
+    const countResult = await getCount(supabaseUrl, serviceRole);
+    if (!countResult.ok) {
+      console.error('Waitlist count failed', countResult.status, countResult.details);
+      // Fallback for UX: keep page functional even if count query fails.
+      return json(200, {
+        ok: true,
+        count: 0,
+        warning: 'Counter fallback used.',
+        details: countResult.details,
+      });
+    }
+    return json(200, { ok: true, count: countResult.value });
   }
 
   if (event.httpMethod !== 'POST') {
@@ -98,19 +122,42 @@ exports.handler = async function handler(event) {
 
   const userAgent = event.headers?.['user-agent'] || null;
   const ipHash = ip === 'unknown' ? null : crypto.createHash('sha256').update(ip).digest('hex');
-  const response = await insertWaitlist(supabaseUrl, serviceRole, {
+  const fullPayload = {
     email,
     what_they_expect,
     referrer,
     source: 'website',
     ip_hash: ipHash,
     user_agent: userAgent,
-  });
+  };
+  let response = await insertWaitlist(supabaseUrl, serviceRole, fullPayload);
+
+  // Backward-compatible retry in case DB schema doesn't include hardening columns yet.
+  if (!response.ok && response.status === 400) {
+    response = await insertWaitlist(supabaseUrl, serviceRole, {
+      email,
+      what_they_expect,
+      referrer,
+    });
+  }
 
   if (response.ok) return json(201, { ok: true });
   if (response.status === 409) return json(409, { ok: true, duplicate: true });
 
-  const text = await response.text().catch(() => '');
-  console.error('Waitlist insert failed', response.status, text);
-  return json(502, { ok: false, error: 'Could not submit right now.' });
+  if (response.status === 401 || response.status === 403) {
+    const details = await readErrorBody(response);
+    return json(502, {
+      ok: false,
+      error: 'Supabase credentials rejected. Verify SUPABASE_SERVICE_ROLE_KEY.',
+      details: details?.message || null,
+    });
+  }
+
+  const details = await readErrorBody(response);
+  console.error('Waitlist insert failed', response.status, details);
+  return json(502, {
+    ok: false,
+    error: 'Could not submit right now.',
+    details: details?.message || details?.hint || null,
+  });
 };
