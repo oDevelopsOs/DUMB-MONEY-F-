@@ -1,9 +1,9 @@
 {
   "name": "Dumb Money",
-  "url": "https://dumb-money-blond.vercel.app",
+  "url": "https://dumb-moneyy.vercel.app",
   "mission": "Evidence-first market intelligence for retail investors.",
-  "llms_txt": "https://dumb-money-blond.vercel.app/llms.txt",
-  "llms_full_txt": "https://dumb-money-blond.vercel.app/llms-full.txt",
+  "llms_txt": "https://dumb-moneyy.vercel.app/llms.txt",
+  "llms_full_txt": "https://dumb-moneyy.vercel.app/llms-full.txt",
   "language": "en",
   "topics": [
     "payment for order flow",
@@ -13,6 +13,6 @@
   ],
   "contact": {
     "email": "gm@dumbmoney.io",
-    "press": "https://dumb-money-blond.vercel.app/press"
+    "press": "https://dumb-moneyy.vercel.app/press"
   }
 }

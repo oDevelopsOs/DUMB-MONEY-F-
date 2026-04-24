@@ -1,6 +1,8 @@
 import { createClient } from '@supabase/supabase-js';
 import { createHash } from 'node:crypto';
 
+export const prerender = false;
+
 const RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000;
 const RATE_LIMIT_MAX_REQUESTS = 10;
 const EXPECTATION_MAX_LEN = 1200;

@@ -1,4 +1,5 @@
 const INDEXNOW_ENDPOINT = 'https://api.indexnow.org/indexnow';
+export const prerender = false;
 
 export async function POST({ request }) {
   const body = await request.json().catch(() => ({}));

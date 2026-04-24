@@ -17,13 +17,13 @@ DUMB MONEY helps retail investors understand market structure, payment for order
 - Portfolio intelligence and risk context
 
 ## Priority URLs
-- https://dumb-money-blond.vercel.app/
-- https://dumb-money-blond.vercel.app/privacy
-- https://dumb-money-blond.vercel.app/about
-- https://dumb-money-blond.vercel.app/methodology
-- https://dumb-money-blond.vercel.app/corrections
-- https://dumb-money-blond.vercel.app/press
-- https://dumb-money-blond.vercel.app/pfof
+- https://dumb-moneyy.vercel.app/
+- https://dumb-moneyy.vercel.app/privacy
+- https://dumb-moneyy.vercel.app/about
+- https://dumb-moneyy.vercel.app/methodology
+- https://dumb-moneyy.vercel.app/corrections
+- https://dumb-moneyy.vercel.app/press
+- https://dumb-moneyy.vercel.app/pfof
 
 ## Freshness
 Content is reviewed continuously. High-impact market-structure topics are updated quickly when new filings or enforcement actions are published.
